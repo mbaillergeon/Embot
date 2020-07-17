@@ -1,9 +1,6 @@
 import discord
 from discord.ext import commands
-#can't do imports. Not sure how to get the channel id.
-
 memberstrikes = {}
-
 
 @commands.command()
 async def hello(ctx):
