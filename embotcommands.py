@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+
+
 memberstrikes = {}
 
 @commands.command()
@@ -13,28 +15,28 @@ async def embot_help(ctx):
     await ctx.send(response)
 
 @commands.command()
+@commands.has_role('Bee')
 async def strikeclear(ctx):
+    #change this to check the role
     strikechannel = discord.utils.get(ctx.guild.text_channels, name = 'strikes')
     strikemessage = await strikechannel.pins()
     await strikemessage[0].edit(content = 'Toes: 1')
 
 @commands.command()
+@commands.has_role('Whole')
 async def destrike(ctx, striketarget, numberofstrikes = 1):
-    await strikemod(ctx, striketarget, numberofstrikes * -1)
+    await strikemod(ctx.guild, striketarget, numberofstrikes * -1)
 
 @commands.command()
 async def strike(ctx, striketarget, numberofstrikes = 1):
-    await strikemod(ctx, striketarget, numberofstrikes * 1)
+    await strikemod(ctx.guild, striketarget, numberofstrikes * 1)
 
 
-async def strikemod(ctx, striketarget, numberofstrikes):
+async def strikemod(guild, striketarget, numberofstrikes = 1):
+    #apply the strikes
 
-    print(f"Strike: {striketarget}")
-    striketargetids = ctx.message.raw_mentions
-
-    strikechannel = discord.utils.get(ctx.guild.text_channels, name = 'strikes')
+    strikechannel = discord.utils.get(guild.text_channels, name = 'strikes')
     strikemessage = await strikechannel.pins()
-    # strikemessage = await strikechannel.fetch_message(strikechannel.last_message_id)
     strikecontent = (strikemessage[0].system_content).split('\n')
     print(strikecontent)
 

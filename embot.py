@@ -3,6 +3,7 @@ import os
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
+from embotcommands import *
 
 
 startup_extensions = ["embotcommands"]
@@ -51,8 +52,10 @@ async def on_raw_reaction_add(payload):
     if payload.emoji.name == 'IDNAWN':
         # chatroom = discord.utils.get(guild.text_channels, id = payload.channel_id)
         chatroom = guild.get_channel(payload.channel_id)
+        striketarget = f'<@!{payload.user_id}>'
         # emoter = str(guild.get_member(payload.user_id)).split('#',1)[0]
-        await chatroom.send(content = f'{payload.member.name} : STRIKE')
+        # await chatroom.send(content = f'!strike @{payload.member.nick}')
+        await strikemod(guild, striketarget)
 
 
 @bot.command()
