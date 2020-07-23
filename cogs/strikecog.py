@@ -10,7 +10,8 @@ memberstrikes = {}
 class StrikeCog(commands.Cog, name='StrikeCog'):
     def __init__(self,bot):
         self.bot = bot
-        self.strikechannel = os.getenv('DISCORD_STRIKE_CHANNEL')
+        # self.strikechannel = os.getenv('DISCORD_STRIKE_CHANNEL')
+        self.strikechannel = os.environ.get('DISCORD_STRIKE_CHANNEL')
         
     #Simple Hello Command
     @commands.command()

@@ -6,9 +6,9 @@ from discord.ext import commands
 
 #Environmental Variables
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
-CHANNEL = os.getenv('DISCORD_CHANNEL')
+TOKEN = os.environ.get('DISCORD_TOKEN')
+GUILD = os.environ.get('DISCORD_GUILD')
+CHANNEL = os.environ.get('DISCORD_CHANNEL')
 
 bot = commands.Bot(command_prefix='!')
 
