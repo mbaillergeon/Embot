@@ -36,7 +36,7 @@ pokebase==1.2.0
 prometheus-client==0.7.1
 prompt-toolkit==3.0.3
 ptyprocess==0.6.0
-Pygments==2.5.2
+Pygments==2.7.4
 PyQt5==5.14.2
 PyQt5-sip==12.7.2
 pyrsistent==0.15.7
