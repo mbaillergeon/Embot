@@ -9,6 +9,7 @@ load_dotenv()
 TOKEN = os.environ.get('DISCORD_TOKEN')
 GUILD = os.environ.get('DISCORD_GUILD')
 CHANNEL = os.environ.get('DISCORD_CHANNEL')
+emulatorurl = os.environ.get('URL')
 
 bot = commands.Bot(command_prefix='!')
 
@@ -22,6 +23,7 @@ async def on_ready():
     guild = discord.utils.get(bot.guilds, name = GUILD)
     beeroom = discord.utils.get(guild.text_channels, name = 'beeroom')
     strikes = discord.utils.get(guild.text_channels, name = 'strikes')
+    embulator = discord.utils.get(guild.text_channels, name = 'embulator')
 
     #Print out the guild and guild id
     print(

@@ -1,5 +1,6 @@
 import discord
 import os
+import requests
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord.ext.commands import MemberConverter
@@ -15,11 +16,17 @@ class StrikeCog(commands.Cog, name='StrikeCog'):
 
     async def getstrikechannel(self):
         self.strikechannel = discord.utils.get(self.bot.get_all_channels(), name = 'strikes')
+
+    async def getEmbulatorChannel(self):
+        self.embulatorchannel = discord.utils.get(self.bot.get_all_channels(), name = 'embulator')
     #Simple Hello Command
     @commands.command()
     async def hello(self, ctx):
         await StrikeCog.getstrikechannel(self)
+        await StrikeCog.getEmbulatorChannel(self)
+        self.emulatorurl = os.environ.get('URL')
         print("Command Triggered")
+        print(self.emulatorurl)
         await ctx.send(f"Hello, {ctx.author}")
 
     #Help Command
@@ -102,10 +109,16 @@ class StrikeCog(commands.Cog, name='StrikeCog'):
     #check messages for banned words
     @commands.Cog.listener()
     async def on_message(self, message):
-        bannedwords = []
-        if message.content in bannedwords:
-            await message.channel.send(content='You have violated the law.')
-            await StrikeCog.strikemod(self, f'<@!{message.author.id}>')
+        if message.author.bot:
+            return
+        if message.channel ==  self.embulatorchannel:
+            action = message.content.upper()
+            allowedactions = ['A','B','U','D','L','R','SLCT','START','R','Q']
+            if action not in allowedactions:
+                await message.channel.send(content='Invalid Action: ' + str(allowedactions))
+            else:
+                r = requests.get('http://' + self.emulatorurl+'/'+action)
+                print(r.text)
         return
 
 def setup(bot):
